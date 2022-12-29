@@ -1,4 +1,3 @@
-import { Opacity } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({

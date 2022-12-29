@@ -10,7 +10,7 @@ import { Box } from "@mui/system";
 import useStyles from "./styles";
 import { Search } from "@mui/icons-material";
 
-const Header = () => {
+const Header = ({ onPlaceChanged, onLoad }) => {
 	const classes = useStyles();
 
 	return (
@@ -23,7 +23,7 @@ const Header = () => {
 					<Typography variant="h6" className={classes.title}>
 						Explore new Places
 					</Typography>
-					{/* <Autocomplete> */}
+					{/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}> */}
 					<div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<Search />
