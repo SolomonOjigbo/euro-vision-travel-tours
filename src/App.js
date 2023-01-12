@@ -10,22 +10,22 @@ function App() {
 	const [type, setType] = useState("restaurants");
 	const [rating, setRating] = useState("");
 
-	const [coordinates, setCoordinates] = useState({});
+	const [coords, setCoords] = useState({});
 	const [bounds, setBounds] = useState(null);
 
 	const [filteredPlaces, setFilteredPlaces] = useState([]);
 	const [places, setPlaces] = useState([]);
 
-	const [autocomplete, setAutocomplete] = useState(null);
+	const [autoComplete, setAutoComplete] = useState(null);
 	const [childClicked, setChildClicked] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(
-			({ coordinates: { latitude, longitude } }) => {
-				setCoordinates({ lat: latitude, lng: longitude });
-			}
-		);
+		navigator.geolocation.getCurrentPosition((position) => {
+			const lat = position.coords.latitude;
+			const lng = position.coords.longitude;
+			setCoords({ lat: lat, lng: lng });
+		});
 	}, []);
 
 	useEffect(() => {
@@ -40,13 +40,13 @@ function App() {
 		}
 	}, [bounds, type]);
 
-	const onLoad = (autoComplete) => setAutocomplete(autoComplete);
+	const onLoad = (autoComplete) => setAutoComplete(autoComplete);
 
 	const onPlaceChanged = () => {
-		const lat = autocomplete.getPlace().geometry.location.lat();
-		const lng = autocomplete.getPlace().geometry.location.lng();
+		const lat = autoComplete.getPlace().geometry.location.lat();
+		const lng = autoComplete.getPlace().geometry.location.lng();
 
-		setCoordinates({ lat, lng });
+		setCoords({ lat, lng });
 	};
 
 	return (
@@ -69,8 +69,8 @@ function App() {
 					<Map
 						setChildClicked={setChildClicked}
 						setBounds={setBounds}
-						setCoordinates={setCoordinates}
-						coordinates={coordinates}
+						setCoordinates={setCoords}
+						coordinates={coords}
 						places={filteredPlaces.length ? filteredPlaces : places}
 					/>
 				</Grid>
